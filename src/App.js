@@ -1,22 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import DrumPad from './components/drumpad';
+import Synth from './components/synth';
 
 function App() {
+  var notes=['A','A#','B','C','C#','D','D#','E','F','F#','G','G#'];
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div>
+          {/* <Synth note="E0"/> */}
+          {/* <Synth note="E3"/> */}
+          {/* <Synth note="G3"/> */}
+          {/* <Synth note="C6"/> */}
+        </div>
+        {/* <DrumPad /> */}
       </header>
     </div>
   );
