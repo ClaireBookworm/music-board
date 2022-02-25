@@ -8,13 +8,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>
-          {/* <Synth note="E0"/> */}
+        <div className="noteGrid">
+          <Synth note="E0"/>
+          <Synth note="E0"/>
+          <Synth note="E0"/>
           {/* <Synth note="E3"/> */}
           {/* <Synth note="G3"/> */}
           {/* <Synth note="C6"/> */}
         </div>
-        {/* <DrumPad /> */}
       </header>
     </div>
   );

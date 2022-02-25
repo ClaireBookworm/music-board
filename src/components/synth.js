@@ -22,10 +22,14 @@ function Synth(props) {
 				// onClick={this.handleClick}>
 				// {props.note} 
 			</button> */}
+      <Keyboard 
+        onMouseDown = {() => setNotes([{name: (props.note)}])}
+        onMouseUp={() => setNotes(null)}
+      />
       <Song isPlaying={isPlaying} bpm={60}>
         <Track steps={[(props.note)]}>
-          {/* <Instrument type="monoSynth" notes={['C3']} envelope={{attack: 0.2,release: 0.5,}} /> */}
-          <Instrument
+          <Instrument type="monoSynth" notes={[(props.note)]} />
+          {/* <Instrument
             type="sampler"
             notes={notes}
             samples={{
@@ -97,7 +101,7 @@ function Synth(props) {
             onLoad={(buffers) => {
             	// runs when all samples are loaded
             }}
-          />
+          /> */}
         </Track>
       </Song>
 
@@ -116,12 +120,12 @@ function Synth(props) {
           onMouseUp={() => {
             setNotes(null);
           }}
-        //   className={css.pad}
+          //   className={css.pad}
           key={pad.note}
-		  style={{
+		      style={{
             fontSize: "2rem",
             padding: "10px",
-			margin: "10px",
+			      margin: "10px",
             width: "5rem",
             borderRadius: "5px",
             border: "black solid 1px",
