@@ -28,13 +28,14 @@ button {
 
 h1 {
 	font-family: "VCR OSD Mono", "Press Start 2P", monospace;
-	font-size: 3rem;
+	font-size: 2rem;
 }
 
 .btn-container {
   position: absolute;
   /* bottom: 0; */
   display: flex;
+  padding: 10px;
   width: 100%;
   /* background: black; */
 }
@@ -171,34 +172,7 @@ audio::-webkit-media-controls-mute-button, video::-webkit-media-controls-mute-bu
 audio::-webkit-media-controls-overlay-enclosure {
     display: none;
 }
-video::-webkit-media-controls-overlay-enclosure {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    flex: 1 1;
-    width: 100%;
-    max-width: 800px;
-    text-indent: 0;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-video::-webkit-media-controls-overlay-play-button {
-    -webkit-appearance: media-overlay-play-button;
-    display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -40px;
-    margin-top: -40px;
-    border: none;
-    box-sizing: border-box;
-    background-color: transparent;
-    width: 80px;
-    height: 80px;
-    padding: 0;
-}
+
 audio::-webkit-media-controls-play-button, video::-webkit-media-controls-play-button {
     -webkit-appearance: media-play-button;
     display: flex;
@@ -237,8 +211,8 @@ audio::-webkit-media-controls-time-remaining-display, video::-webkit-media-contr
     margin: 0 9px 0 0;
     padding: 0;
     line-height: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
+    font-family: "VCR OSD Mono", "Press Start 2P", Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
     font-weight: bold;
     font-style: normal;
     color: white;
@@ -255,11 +229,12 @@ audio::-webkit-media-controls-timeline, video::-webkit-media-controls-timeline {
     flex: 1 1 auto;
     height: 8px;
     margin: 0 15px 0 0;
-    padding: 0;
-    background-color: transparent;
+    /* padding: 0;
+    background-color: transparent; */
     min-width: 25px;
     border: initial;
-    color: inherit;
+    color: 	#00fff9;
+	/* background-color: 	#00fff9; */
 }
 audio::-webkit-media-controls-volume-slider, video::-webkit-media-controls-volume-slider {
     -webkit-appearance: media-volume-slider;
@@ -270,7 +245,7 @@ audio::-webkit-media-controls-volume-slider, video::-webkit-media-controls-volum
     flex: 1 1.9 auto;
     height: 8px;
     max-width: 70px;
-    margin: 0 15px 0 0;
+    margin: 13px 15px 0 0;
     padding: 0;
     background-color: transparent;
     min-width: 15px;
@@ -318,21 +293,7 @@ audio::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-f
 audio::-webkit-media-controls-toggle-closed-captions-button {
     display: none;
 }
-video::-webkit-media-controls-toggle-closed-captions-button {
-    -webkit-appearance: media-toggle-closed-captions-button;
-    display: flex;
-    flex: none;
-    border: none;
-    box-sizing: border-box;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    margin-left: -5px;
-    margin-right: 9px;
-    padding: 0;
-    background-color: initial;
-    color: inherit;
-}
+
 audio::-webkit-media-controls-fullscreen-volume-slider, video::-webkit-media-controls-fullscreen-volume-slider {
     display: none;
 }
@@ -341,65 +302,4 @@ audio::-webkit-media-controls-fullscreen-volume-min-button, video::-webkit-media
 }
 audio::-webkit-media-controls-fullscreen-volume-max-button, video::-webkit-media-controls-fullscreen-volume-max-button {
     display: none;
-}
-video::-webkit-media-text-track-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    padding-bottom: 5px;
-    font: 22px sans-serif;
-    text-align: center;
-    color: rgba(255, 255, 255, 1);
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0;
-    text-decoration: none;
-    pointer-events: none;
-    -webkit-user-select: none;
-    word-break: break-word;
-    flex: 1 1;
-}
-video::cue {
-    display: inline;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 2px 2px;
-}
-video::-webkit-media-text-track-region {
-    position: absolute;
-    line-height: 5.33vh;
-    writing-mode: horizontal-tb;
-    background: rgba(0, 0, 0, 0.8);
-    color: rgba(255, 255, 255, 1);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    overflow: hidden;
-}
-video::-webkit-media-text-track-region-container {
-    position: relative;
-    display: flex;
-    flex-flow: column;
-    flex-direction: column;
-}
-video::-webkit-media-text-track-region-container.scrolling {
-    transition: top 433ms linear;
-}
-video::-webkit-media-text-track-display {
-    position: absolute;
-    overflow: hidden;
-    white-space: pre-wrap;
-    -webkit-box-sizing: border-box;
-    flex: 0 0 auto;
-}
-video::cue(:future) {
-    color: gray;
-}
-video::-webkit-media-text-track-container b {
-    font-weight: bold;
-}
-video::-webkit-media-text-track-container u {
-    text-decoration: underline;
-}
-video::-webkit-media-text-track-container i {
-    font-style: italic;
 }
