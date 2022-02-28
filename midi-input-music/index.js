@@ -47,14 +47,15 @@ for (var i = 0; i < btn.length; i++) {
 for (var i = 0; i < btn.length; i++) {
   addAudioProperties(btn[i]);
 }
+// TODO: restore this later for drums!! 
 // this maps the MIDI key value (60 - 64) to our samples
-var sampleMap = {
-  key60: 1,
-  key61: 2,
-  key62: 3,
-  key63: 4,
-  key64: 5,
-};
+// var sampleMap = {
+//   key60: 1,
+//   key61: 2,
+//   key62: 3,
+//   key63: 4,
+//   key64: 5,
+// };
 // user interaction, mouse click
 function clickPlayOn(e) {
   e.target.classList.add("active");
@@ -238,17 +239,18 @@ function noteOff(midiNote, velocity) {
   player(midiNote, velocity);
 }
 
+// TODO: restore for player! 
 function player(note, velocity) {
-  var sample = sampleMap["key" + note];
-  if (sample) {
-    if (type == (0x80 & 0xf0) || velocity == 0) {
-      //QuNexus always returns 144
-      btn[sample - 1].classList.remove("active");
-      return;
-    }
-    btn[sample - 1].classList.add("active");
-    btn[sample - 1].play(velocity);
-  }
+  // var sample = sampleMap["key" + note];
+  // if (sample) {
+  //   if (type == (0x80 & 0xf0) || velocity == 0) {
+  //     //QuNexus always returns 144
+  //     btn[sample - 1].classList.remove("active");
+  //     return;
+  //   }
+  //   btn[sample - 1].classList.add("active");
+  //   btn[sample - 1].play(velocity);
+  // }
 }
 
 function onMIDIFailure(e) {
@@ -354,3 +356,5 @@ function showMIDIPorts(midiAccess) {
   });
   deviceInfoOutputs.innerHTML = html + "</div>";
 }
+
+
