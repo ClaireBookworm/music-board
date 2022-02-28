@@ -28,12 +28,13 @@ let plane,
 
 
 //////////////////////////////////////////////////////
+
 // Set up dat.gui
 const playlist = {
-  //  "blackbird": "https://res.cloudinary.com/broregard/video/upload/v1550441401/Martyn_Bennett_-_Blackbird_ullkig.mp3",
-  // "golden gal": "https://res.cloudinary.com/broregard/video/upload/v1550441316/goldengal_w1kyry.mp3",
-  // "tonight": "https://res.cloudinary.com/broregard/video/upload/v1550441395/tonight_fgz5zx.mp3",
-  // "wål": "https://res.cloudinary.com/broregard/video/upload/v1550441391/wal_v7pflb.mp3",
+   "drone song": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/0drone_song.mp3",
+  "Final Defiance": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/1final_defiance.mp3",
+  "Empty Space Above": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/3the_empty_space_above.mp3",
+  "Celeste Prologue": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/2prologue_-_celeste_soundtrack.mp3",
   // "another man": "https://res.cloudinary.com/broregard/video/upload/v1550441401/Another_Man_wl53nr.mp3",
   "chillhop": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/0chilly.mp3",
   
