@@ -521,10 +521,10 @@ THREE.OrbitControls = function ( object, domElement ) {
 		scope.dispatchEvent( endEvent );
 
 	}
-
+	
 	function onKeyDown( event ) {
 
-		if ( scope.enabled === false || scope.noKeys === true || scope.noPan === true ) return;
+		if ( scope.enabled === false || scope.noKeys === true || scope.noPan === true ) return; // or if( scope.enabled === false || ... )
 
 		switch ( event.keyCode ) {
 
@@ -572,7 +572,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 				if ( scope.noZoom === true ) return;
 
 				state = STATE.TOUCH_DOLLY;
-
+				// get the distance between the two touches
 				var dx = event.touches[ 0 ].pageX - event.touches[ 1 ].pageX;
 				var dy = event.touches[ 0 ].pageY - event.touches[ 1 ].pageY;
 				var distance = Math.sqrt( dx * dx + dy * dy );
@@ -604,7 +604,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		event.preventDefault();
 		event.stopPropagation();
-
+		//event.preventDefault();
 		var element = scope.domElement === document ? scope.domElement.body : scope.domElement;
 
 		switch ( event.touches.length ) {
@@ -686,6 +686,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 	}
 
+	// this method is exposed, but perhaps it would be better if we can make it private...
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
 	this.domElement.addEventListener( 'mousedown', onMouseDown, false );
 	this.domElement.addEventListener( 'mousewheel', onMouseWheel, false );
@@ -704,3 +705,4 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 THREE.OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
 THREE.OrbitControls.prototype.constructor = THREE.OrbitControls;
+// 

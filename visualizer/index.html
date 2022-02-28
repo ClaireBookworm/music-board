@@ -5,13 +5,35 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.min.js"></script>
 	<!-- <script type="text/javascript" src="dat.gui.min.js"></script> -->
 	<script src="index.js" defer></script>
-	<style type="stylesheet" href="index.css"></style>
+	<title>Music Board</title>
+	<link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-<div class="btn-container">
-	<audio controls></audio>
-	<input class="input-file" type="file" id="file" accept="audio/*"/>
-  </div>
+	<div class="heading">
+		<h1 class="title">Welcome to Music Lab</h1>
+		<p>
+			Tap on the screen! Then, check out the MIDI keyboard in front of you. 
+			</p>
+	</div>
+	<div id="type">
+
+	</div>
+	<div id="device_info">
+		<div id="key_data"></div>
+		<div id="inputs"></div>
+		<div id="outputs"></div>
+	</div>
+	
+	<div class="btn-container">
+		<audio controls id="player" loop="true"></audio>
+		<div> 
+			<button onclick="document.getElementById('player').play()">Play</button> 
+			<button onclick="document.getElementById('player').pause()">Pause</button> 
+			<!-- <button onclick="document.getElementById('player').volume += 0.1">Vol +</button>  -->
+			<!-- <button onclick="document.getElementById('player').volume -= 0.1">Vol -</button>  -->
+		  </div>
+		<input class="input-file" type="file" id="file" accept="audio/*"/>
+  	</div>
 </body>
 </html>
