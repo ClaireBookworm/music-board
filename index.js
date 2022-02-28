@@ -31,14 +31,14 @@ let plane,
 
 // Set up dat.gui
 const playlist = {
-   "drone song": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/0drone_song.mp3",
+  "Drone Song": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/0drone_song.mp3",
   "Final Defiance": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/1final_defiance.mp3",
   "Empty Space Above": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/3the_empty_space_above.mp3",
   "Celeste Prologue": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/2prologue_-_celeste_soundtrack.mp3",
   // "another man": "https://res.cloudinary.com/broregard/video/upload/v1550441401/Another_Man_wl53nr.mp3",
-  "chillhop": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/0chilly.mp3",
+  "Chillhop": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/0chilly.mp3",
   
-  "synthwave": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/1synthwavey.mp3"
+  "Synthwave": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/1synthwavey.mp3"
 };
 
 
