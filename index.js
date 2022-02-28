@@ -44,7 +44,7 @@ const playlist = {
 
 const VizCtrl = function() {
   this.song = "";
-  this.song = playlist["chillhop"];
+  this.song = playlist["Chillhop"];
   this.spread = 3;
   this.width = 40;
   this.sphereFrequency = 10;
