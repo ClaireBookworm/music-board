@@ -5,23 +5,31 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.min.js"></script>
 	<!-- <script type="text/javascript" src="dat.gui.min.js"></script> -->
 	<script src="index.js" defer></script>
-	<title>Music Board</title>
+	<meta charset="utf-8"/>
+	<title>MIDI Lab</title>
 	<link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-	<div class="heading">
-		<h1 class="title">Welcome to Music Lab</h1>
-		<p>
-			Tap on the screen! Then, check out the MIDI keyboard in front of you. Click on the controls for some sample tracks!
+	<div class="top">
+		<div class="heading">
+			<h1 class="title">Welcome to Music Lab</h1>
+			<p>
+				Tap on the screen! Then, check out the MIDI keyboard in front of you. Click on the controls for some sample tracks!
 			</p>
-		<div id="type">
+			
+			<div id="type">
 
+			</div>
+			<div id="device_info">
+				<div id="key_data"></div>
+				<div id="inputs"></div>
+				<div id="outputs"></div>
+			</div>
 		</div>
-		<div id="device_info">
-			<div id="key_data"></div>
-			<div id="inputs"></div>
-			<div id="outputs"></div>
+		<div class="controls"> 
+			<button style="font-size: 110%"onclick="document.getElementById('player').play()">&#x25B6;</button> 
+			<button onclick="document.getElementById('player').pause()">&#9613;&#9613;</button> 
 		</div>
 	</div>
 	

@@ -1,3 +1,12 @@
+/*
+VAPORWAVE color scheme, woooooh! 
+#ff00c1	(255,0,193)
+#9600ff	(150,0,255)
+#4900ff	(73,0,255)
+#00b8ff	(0,184,255)
+#00fff9 (0,255,249)
+*/
+
 body {
   /* overflow: hidden; */
   margin: 0;
@@ -11,9 +20,31 @@ body {
   font-family: "SF Mono", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
 }
 
+.top{
+    display: flex;
+}
+
 .heading {
 	margin: 1rem;
 	padding-left: 1rem;
+    flex: 5;
+}
+
+.controls {
+    font-size: 3rem;
+    margin-top: 2rem;
+    justify-content: center;
+    flex: 1;
+}
+.controls > button {
+    background: none;
+    font-family: "VCR OSD Mono", monospace;
+    color: white;
+    font-size: 2.5rem;
+    border: none;
+}
+.controls > button:focus {
+    color: #00fff9;
 }
 
 /* button {
