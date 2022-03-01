@@ -9,8 +9,10 @@ VAPORWAVE color scheme, woooooh!
 
 @font-face {
     font-family: "VCR OSD Mono";
-    src: url(VCR_OSD_MONO.woff);
-  }
+    src: url(VCR_OSD_MONO_1.001.woff);
+}
+  
+  @import url('https://fonts.googleapis.com/css2?family=Epilogue&family=Gluten&family=Grandstander&family=Imbue&family=Tourney&family=Trispace&display=swap');
 
 body {
   /* overflow: hidden; */
