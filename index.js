@@ -35,6 +35,9 @@ const playlist = {
   "Final Defiance": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/1final_defiance.mp3",
   "Empty Space Above": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/3the_empty_space_above.mp3",
   "Celeste Prologue": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/2prologue_-_celeste_soundtrack.mp3",
+  "Circles by Digitalis": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/0circles-digitalism.mp3",
+  "A Moment Apart by ODESZA": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/1amomentapart-odesza.mp3",
+  "Enemy by Imagine Dragons": "https://cloud-l074gcsls-hack-club-bot.vercel.app/0enemy-id.mp3",
   // "another man": "https://res.cloudinary.com/broregard/video/upload/v1550441401/Another_Man_wl53nr.mp3",
   "Chillhop": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/0chilly.mp3",
   
@@ -44,10 +47,10 @@ const playlist = {
 
 const VizCtrl = function() {
   this.song = "";
-  this.song = playlist["Chillhop"];
+  this.song = playlist["Enemy by Imagine Dragons"];
   this.spread = 3;
   this.width = 40;
-  this.sphereFrequency = 10;
+  this.sphereFrequency = 20;
   this.limit = 105;
   this.animSphere = true;
   this.animWave = true;
@@ -461,7 +464,7 @@ function onMIDIMessage(event) {
 		noteOff(note, velocity);
 	}
 	console.log("data", data, "cmd", cmd, "channel", channel, "note", key);
-	logger(keyData, "Data for your key:", data);
+	logger(keyData, "MIDI Input Data:", data);
 	//   switch (type) {
 	//     case 144: // noteOn message
 	//       noteOn(note, velocity);

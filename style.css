@@ -20,12 +20,13 @@ body {
   font-family: "SF Mono", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
 }
 
+/* LARGER CONTROLS for the BIG SCREEN*/
 .top{
     display: flex;
 }
 
 .heading {
-	margin: 1rem;
+	margin: 0.5rem 1rem;
 	padding-left: 1rem;
     flex: 5;
 }
@@ -47,20 +48,13 @@ body {
     color: #00fff9;
 }
 
-/* button {
-  font-family: monospace;
-  background-color: black;
-  border: green;
-  color: magenta;
-  font-size: 20px;
-  z-index: 1;
-  display: inline;
-} */
 
 h1 {
 	font-family: "VCR OSD Mono", "Press Start 2P", monospace;
 	font-size: 2rem;
 }
+
+/* PLAYER and UPLOAD */
 
 .btn-container {
   /* position: absolute; */
@@ -78,6 +72,7 @@ input[type="file"] {
 .label-input{ 
 	font-family:  "SF Mono", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
 	line-height: 1rem;
+    text-align: center;
 	margin: 0 2rem;
 	background-color: 	#ff00c1;
     /* display: inline-block; */
@@ -86,22 +81,12 @@ input[type="file"] {
 	font-family: "VCR OSD Mono", "Press Start 2P", monospace;
 	flex: 1;
 }
-
-
-/* .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-} */
-
-/* audio {
-	display: block;
-	border-radius: 0px;
-	border: 3px pink;
-	width: 100%;
-} */
+audio {
+    width: 100%;
+    height: 30px;
+	/* display: inline-block; */
+	flex:4;
+}
 
 
 /*
@@ -130,12 +115,6 @@ input[type="file"] {
  */
 /* Chromium default media controls */
 /* WARNING: This css file can only style <audio> and <video> elements */
-audio {
-    width: 100%;
-    height: 30px;
-	/* display: inline-block; */
-	flex:3;
-}
 audio::-webkit-media-controls,
 video::-webkit-media-controls {
     width: inherit;
