@@ -29,6 +29,9 @@ let plane,
 
 //////////////////////////////////////////////////////
 
+// ytdl https://www.youtube.com/watch?v=YmZKaKJZGh8 | ffmpeg -i pipe:0 -b:a 192K -vn itsallhappening.mp3 
+//  ^ template for audio
+
 // Set up dat.gui
 const playlist = {
   // "Drone Song": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/0drone_song.mp3",
