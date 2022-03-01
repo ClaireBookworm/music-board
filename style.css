@@ -7,6 +7,11 @@ VAPORWAVE color scheme, woooooh!
 #00fff9 (0,255,249)
 */
 
+@font-face {
+    font-family: "VCR OSD Mono";
+    src: url(VCR_OSD_MONO.woff);
+  }
+
 body {
   /* overflow: hidden; */
   margin: 0;
