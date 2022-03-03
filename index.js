@@ -29,7 +29,7 @@ let plane,
 
 //////////////////////////////////////////////////////
 
-// ytdl https://www.youtube.com/watch?v=tKsBddrGqdI | ffmpeg -i pipe:0 -b:a 192K -vn victorius.mp3 
+// ytdl https://www.youtube.com/watch?v=mXLRy1cNMWs | ffmpeg -i pipe:0 -b:a 192K -vn boomxambassadors.mp3 
 //  ^ template for audio
 
 // Set up dat.gui
@@ -51,8 +51,12 @@ const playlist = {
   "We Don't Talk about Bruno": "https://cloud-jozojz9gz-hack-club-bot.vercel.app/1bruno.mp3",
   "Violet City (Mansionair": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/0violetcity.mp3", 
   "Head Up (The Score)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/1headupscore.mp3", 
-  "HandClap (Fitz)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/2handclap.mp3"
-  
+  "HandClap (Fitz)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/2handclap.mp3",
+  "Boom (X Ambassadors)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/0boomxambassadors.mp3",
+  "Boom (Tiesto)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/1boomtiesto.mp3",
+  "Legends Never Die (LoL)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/2legendsneverdie.mp3",
+  "Stigmata (Grandson)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/3stigmata.mp3",
+  "Victorius (P!atd)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/4victorius.mp3" 
   // "Synthwave": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/1synthwavey.mp3"
 };
 
