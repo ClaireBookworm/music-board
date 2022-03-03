@@ -29,23 +29,31 @@ let plane,
 
 //////////////////////////////////////////////////////
 
-// ytdl https://www.youtube.com/watch?v=YmZKaKJZGh8 | ffmpeg -i pipe:0 -b:a 192K -vn itsallhappening.mp3 
+// ytdl https://www.youtube.com/watch?v=tKsBddrGqdI | ffmpeg -i pipe:0 -b:a 192K -vn victorius.mp3 
 //  ^ template for audio
 
 // Set up dat.gui
 const playlist = {
   // "Drone Song": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/0drone_song.mp3",
-  "Final Defiance": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/1final_defiance.mp3",
+  // "Final Defiance": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/1final_defiance.mp3",
+  "Heat Waves (Glass Animals)": "https://cloud-dvv1yynch-hack-club-bot.vercel.app/0heatwaves.mp3",
   "Empty Space Above": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/3the_empty_space_above.mp3",
   // "Celeste Prologue": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/2prologue_-_celeste_soundtrack.mp3",
-  "Circles by Digitalism": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/0circles-digitalism.mp3",
-  "A Moment Apart by ODESZA": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/1amomentapart-odesza.mp3",
-  "Enemy by Imagine Dragons": "https://cloud-l074gcsls-hack-club-bot.vercel.app/0enemy-id.mp3",
-  "It's All Happening by Saint Motel": "https://cloud-qiukwnhg8-hack-club-bot.vercel.app/0itsallhappening.mp3",
+  "Circles (Digitalism)": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/0circles-digitalism.mp3",
+  "A Moment Apart (ODESZA)": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/1amomentapart-odesza.mp3",
+  "Enemy (Imagine Dragons)": "https://cloud-l074gcsls-hack-club-bot.vercel.app/0enemy-id.mp3",
+  "It's All Happening (Saint Motel)": "https://cloud-qiukwnhg8-hack-club-bot.vercel.app/0itsallhappening.mp3",
+  "Colorado (Milky Chance)": "https://cloud-dvv1yynch-hack-club-bot.vercel.app/1colorado.mp3",
+  "Ready for it! (Taylor Swift)": "https://cloud-eocfi0afm-hack-club-bot.vercel.app/0readyforit.mp3",
   // "another man": "https://res.cloudinary.com/broregard/video/upload/v1550441401/Another_Man_wl53nr.mp3",
   "Chillhop": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/0chilly.mp3",
+  "Mount Everest (Labrinth)": "https://cloud-jozojz9gz-hack-club-bot.vercel.app/0mounteverest.mp3",
+  "We Don't Talk about Bruno": "https://cloud-jozojz9gz-hack-club-bot.vercel.app/1bruno.mp3",
+  "Violet City (Mansionair": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/0violetcity.mp3", 
+  "Head Up (The Score)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/1headupscore.mp3", 
+  "HandClap (Fitz)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/2handclap.mp3"
   
-  "Synthwave": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/1synthwavey.mp3"
+  // "Synthwave": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/1synthwavey.mp3"
 };
 
 
