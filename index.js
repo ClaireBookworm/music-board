@@ -43,7 +43,7 @@ const playlist = {
   "Never Gonna Give You Up": "https://cloud-nfu662aja-hack-club-bot.vercel.app/2rickroll.mp3",
   "Circles (Digitalism)": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/0circles-digitalism.mp3",
   "A Moment Apart (ODESZA)": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/1amomentapart-odesza.mp3",
-  "Loyal (ODESZA": "https://cloud-nfu662aja-hack-club-bot.vercel.app/0loyalodesza.mp3", 
+  "Loyal (ODESZA)": "https://cloud-nfu662aja-hack-club-bot.vercel.app/0loyalodesza.mp3", 
   "Enemy (Imagine Dragons)": "https://cloud-l074gcsls-hack-club-bot.vercel.app/0enemy-id.mp3",
   "It's All Happening (Saint Motel)": "https://cloud-qiukwnhg8-hack-club-bot.vercel.app/0itsallhappening.mp3",
   "Colorado (Milky Chance)": "https://cloud-dvv1yynch-hack-club-bot.vercel.app/1colorado.mp3",
