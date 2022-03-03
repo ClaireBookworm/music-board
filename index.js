@@ -56,14 +56,14 @@ const playlist = {
   "Boom (Tiesto)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/1boomtiesto.mp3",
   "Legends Never Die (LoL)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/2legendsneverdie.mp3",
   "Stigmata (Grandson)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/3stigmata.mp3",
-  "Victorius (P!atd)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/4victorius.mp3" 
+  "Victorius (P!atd)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/4victorius.mp3"
   // "Synthwave": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/1synthwavey.mp3"
 };
 
 
 const VizCtrl = function() {
   this.song = "";
-  this.song = playlist["Enemy by Imagine Dragons"];
+  this.song = playlist["Enemy (Imagine Dragons)"];
   this.spread = 3;
   this.width = 40;
   this.sphereFrequency = 20;
