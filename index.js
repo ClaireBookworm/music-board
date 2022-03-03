@@ -29,7 +29,7 @@ let plane,
 
 //////////////////////////////////////////////////////
 
-// ytdl https://www.youtube.com/watch?v=mXLRy1cNMWs | ffmpeg -i pipe:0 -b:a 192K -vn boomxambassadors.mp3 
+// ytdl https://www.youtube.com/watch?v=Sz_YPczxzZc | ffmpeg -i pipe:0 -b:a 192K -vn loyalodesza.mp3 
 //  ^ template for audio
 
 // Set up dat.gui
@@ -38,9 +38,12 @@ const playlist = {
   // "Final Defiance": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/1final_defiance.mp3",
   "Heat Waves (Glass Animals)": "https://cloud-dvv1yynch-hack-club-bot.vercel.app/0heatwaves.mp3",
   "Empty Space Above": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/3the_empty_space_above.mp3",
+  "Seven Nation Army": "https://cloud-nfu662aja-hack-club-bot.vercel.app/1sevennationarmy.mp3",
   // "Celeste Prologue": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/2prologue_-_celeste_soundtrack.mp3",
+  "Never Gonna Give You Up": "https://cloud-nfu662aja-hack-club-bot.vercel.app/2rickroll.mp3",
   "Circles (Digitalism)": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/0circles-digitalism.mp3",
   "A Moment Apart (ODESZA)": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/1amomentapart-odesza.mp3",
+  "Loyal (ODESZA": "https://cloud-nfu662aja-hack-club-bot.vercel.app/0loyalodesza.mp3", 
   "Enemy (Imagine Dragons)": "https://cloud-l074gcsls-hack-club-bot.vercel.app/0enemy-id.mp3",
   "It's All Happening (Saint Motel)": "https://cloud-qiukwnhg8-hack-club-bot.vercel.app/0itsallhappening.mp3",
   "Colorado (Milky Chance)": "https://cloud-dvv1yynch-hack-club-bot.vercel.app/1colorado.mp3",
