@@ -29,7 +29,7 @@ let plane,
 
 //////////////////////////////////////////////////////
 
-// ytdl https://www.youtube.com/watch?v=Sz_YPczxzZc | ffmpeg -i pipe:0 -b:a 192K -vn loyalodesza.mp3 
+// ytdl https://www.youtube.com/watch?v=fvg01l43XBc | ffmpeg -i pipe:0 -b:a 192K -vn enchanted.mp3 
 //  ^ template for audio
 
 // Set up dat.gui
@@ -55,6 +55,8 @@ const playlist = {
   "Violet City (Mansionair": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/0violetcity.mp3", 
   "Head Up (The Score)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/1headupscore.mp3", 
   "HandClap (Fitz)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/2handclap.mp3",
+  "Blank Space (Taylor Swift)": "https://cloud-fgqa8ftoh-hack-club-bot.vercel.app/0blankspace.mp3", 
+  "Enchanted (Taylor Swift)": "https://cloud-fgqa8ftoh-hack-club-bot.vercel.app/1enchanted.mp3",
   "Boom (X Ambassadors)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/0boomxambassadors.mp3",
   "Boom (Tiesto)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/1boomtiesto.mp3",
   "Legends Never Die (LoL)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/2legendsneverdie.mp3",
@@ -66,7 +68,7 @@ const playlist = {
 
 const VizCtrl = function() {
   this.song = "";
-  this.song = playlist["Enemy (Imagine Dragons)"];
+  this.song = playlist["Ready for it! (Taylor Swift)"];
   this.spread = 3;
   this.width = 40;
   this.sphereFrequency = 20;
