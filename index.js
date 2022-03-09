@@ -290,7 +290,8 @@ function render() {
 
 //////////////////////////////////////////////////////
 // midi input code 
-
+// delete this code bc it's going to cause some issues
+/*
 var log = console.log.bind(console),
   keyData = document.getElementById("key_data"),
   deviceInfoInputs = document.getElementById("inputs"),
@@ -650,4 +651,4 @@ function showMIDIPorts(midiAccess) {
   deviceInfoOutputs.innerHTML = html + "</div>";
 }
 
-
+*/
