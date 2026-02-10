@@ -15,16 +15,25 @@ let plane,
     planeCount = 0,
     planeCountIncrement = .06,
 
-    cameraCount = 1, 
+    cameraCount = 1,
     cameraCountIncrement = Math.PI / 250,
 
     vert = [],
     initVerts = [],
 
     initAudio = false,
+    audioContextInitialized = false,
+    audioSourceConnected = false,
+    renderStarted = false,
     audio = document.querySelector("audio"),
+    audioContext,
     analyser,
-    frequencyData;
+    frequencyData,
+
+    // MIDI synth variables
+    midiEnabled = false,
+    midiSynthGain,
+    activeOscillators = {};
 
 
 //////////////////////////////////////////////////////
@@ -34,41 +43,22 @@ let plane,
 
 // Set up dat.gui
 const playlist = {
-  // "Drone Song": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/0drone_song.mp3",
-  // "Final Defiance": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/1final_defiance.mp3",
-  "Heat Waves (Glass Animals)": "https://cloud-dvv1yynch-hack-club-bot.vercel.app/0heatwaves.mp3",
-  "Empty Space Above": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/3the_empty_space_above.mp3",
-  "Seven Nation Army": "https://cloud-nfu662aja-hack-club-bot.vercel.app/1sevennationarmy.mp3",
-  // "Celeste Prologue": "https://cloud-9hfebwzq5-hack-club-bot.vercel.app/2prologue_-_celeste_soundtrack.mp3",
-  "Never Gonna Give You Up": "https://cloud-nfu662aja-hack-club-bot.vercel.app/2rickroll.mp3",
-  "Circles (Digitalism)": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/0circles-digitalism.mp3",
-  "A Moment Apart (ODESZA)": "https://cloud-20zbdcgt7-hack-club-bot.vercel.app/1amomentapart-odesza.mp3",
-  "Loyal (ODESZA)": "https://cloud-nfu662aja-hack-club-bot.vercel.app/0loyalodesza.mp3", 
-  "Enemy (Imagine Dragons)": "https://cloud-l074gcsls-hack-club-bot.vercel.app/0enemy-id.mp3",
-  "It's All Happening (Saint Motel)": "https://cloud-qiukwnhg8-hack-club-bot.vercel.app/0itsallhappening.mp3",
-  "Colorado (Milky Chance)": "https://cloud-dvv1yynch-hack-club-bot.vercel.app/1colorado.mp3",
-  "Ready for it! (Taylor Swift)": "https://cloud-eocfi0afm-hack-club-bot.vercel.app/0readyforit.mp3",
-  // "another man": "https://res.cloudinary.com/broregard/video/upload/v1550441401/Another_Man_wl53nr.mp3",
-  "Chillhop": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/0chilly.mp3",
-  "Mount Everest (Labrinth)": "https://cloud-jozojz9gz-hack-club-bot.vercel.app/0mounteverest.mp3",
-  "We Don't Talk about Bruno": "https://cloud-jozojz9gz-hack-club-bot.vercel.app/1bruno.mp3",
-  "Violet City (Mansionair": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/0violetcity.mp3", 
-  "Head Up (The Score)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/1headupscore.mp3", 
-  "HandClap (Fitz)": "https://cloud-ccb1ahgy3-hack-club-bot.vercel.app/2handclap.mp3",
-  "Blank Space (Taylor Swift)": "https://cloud-fgqa8ftoh-hack-club-bot.vercel.app/0blankspace.mp3", 
-  "Enchanted (Taylor Swift)": "https://cloud-fgqa8ftoh-hack-club-bot.vercel.app/1enchanted.mp3",
-  "Boom (X Ambassadors)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/0boomxambassadors.mp3",
-  "Boom (Tiesto)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/1boomtiesto.mp3",
-  "Legends Never Die (LoL)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/2legendsneverdie.mp3",
-  "Stigmata (Grandson)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/3stigmata.mp3",
-  "Victorius (P!atd)": "https://cloud-lf8s9lno1-hack-club-bot.vercel.app/4victorius.mp3"
-  // "Synthwave": "https://cloud-4slzggtp2-hack-club-bot.vercel.app/1synthwavey.mp3"
+  "Modern Girl (Bleachers)": "./public/songs/Modern Girl.mp3",
+  "Lucifer (A.G. Cook)": "./public/songs/Lucifer.mp3",
+  "Float On (Modest Mouse)": "./public/songs/Float On.mp3",
+  "Dance Yrself Clean (LCD Soundsystem)": "./public/songs/Dance Yrself Clean.mp3",
+  "May I Have This Dance (Francis and the Lights)": "./public/songs/May I Have This Dance.mp3",
+  "The New Year (Death Cab for Cutie)": "./public/songs/The New Year.mp3",
+  "Go! (M83)": "./public/songs/Go! (feat. Mai Lan).mp3",
+  "Behind the Sun (ODESZA)": "./public/songs/Behind The Sun.mp3",
+  "Taxes (S. Carey)": "./public/songs/Taxes.mp3",
+  "The Place Where He Inserted the Blade (Black Country, New Road)": "./public/songs/The Place Where He Inserted the Blade.mp3"
 };
 
 
 const VizCtrl = function() {
   this.song = "";
-  this.song = playlist["Ready for it! (Taylor Swift)"];
+  this.song = playlist["Modern Girl (Bleachers)"];
   this.spread = 3;
   this.width = 40;
   this.sphereFrequency = 20;
@@ -230,7 +220,7 @@ function onWindowResize() {
 //////////////////////////////////////////////////////
 // audio stuff
 
-fetchSong(playlist["blackbird"])
+fetchSong(playlist["Modern Girl (Bleachers)"])
 
 function fetchSong(mp3 = Viz.song) {
   fetch(mp3)
@@ -241,7 +231,10 @@ function fetchSong(mp3 = Viz.song) {
       window.addEventListener("click", function allowAudio() {
         window.removeEventListener("click", allowAudio);
         playMusic(mp3);
-        render()
+        if (!renderStarted) {
+          renderStarted = true;
+          render();
+        }
       });
     }
     else playMusic(mp3);
@@ -249,21 +242,38 @@ function fetchSong(mp3 = Viz.song) {
 }
 
 function playMusic(mp3) {
-  const audioContext = window.webkitAudioContext || window.AudioContext;
-  const files = this.files;
-
   audio.src = URL.createObjectURL(mp3);
   audio.play();
 
-  const context = new audioContext();
-  const src = context.createMediaElementSource(audio);
-  analyser = context.createAnalyser();
+  // Create AudioContext if not already created (by MIDI or previous playback)
+  if (!audioContextInitialized) {
+    const AudioContextClass = window.webkitAudioContext || window.AudioContext;
+    audioContext = new AudioContextClass();
+    analyser = audioContext.createAnalyser();
+    analyser.connect(audioContext.destination);
 
-  src.connect(analyser);
-  analyser.connect(context.destination);
+    const bufferLength = analyser.frequencyBinCount;
+    frequencyData = new Uint8Array(bufferLength);
 
-  const bufferLength = analyser.frequencyBinCount;
-  frequencyData = new Uint8Array(bufferLength);
+    // Create gain node for MIDI synth
+    midiSynthGain = audioContext.createGain();
+    midiSynthGain.gain.value = 0.3;
+    midiSynthGain.connect(analyser);
+
+    audioContextInitialized = true;
+  }
+
+  // Connect audio element source (can only be done once per element)
+  if (!audioSourceConnected) {
+    const src = audioContext.createMediaElementSource(audio);
+    src.connect(analyser);
+    audioSourceConnected = true;
+  }
+
+  // Resume audio context if suspended (browser autoplay policy)
+  if (audioContext && audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
 }
 
 function clamp(num, min, max) {
@@ -272,7 +282,153 @@ function clamp(num, min, max) {
 
 file.onchange = function() {
   playMusic(this.files[0]);
+  if (!renderStarted) {
+    renderStarted = true;
+    render();
+  }
 }
+
+
+//////////////////////////////////////////////////////
+// MIDI Synth - plays notes through Web Audio, visualized by analyser
+
+function initMIDI() {
+  if (!navigator.requestMIDIAccess) {
+    console.log("Web MIDI not supported in this browser");
+    return;
+  }
+
+  navigator.requestMIDIAccess()
+    .then(onMIDISuccess, onMIDIFailure);
+}
+
+function onMIDISuccess(midiAccess) {
+  console.log("MIDI access granted");
+  midiEnabled = true;
+
+  // Listen to all MIDI inputs
+  for (let input of midiAccess.inputs.values()) {
+    console.log("MIDI input detected:", input.name);
+    input.onmidimessage = handleMIDIMessage;
+  }
+
+  // Listen for new devices
+  midiAccess.onstatechange = (e) => {
+    if (e.port.type === "input" && e.port.state === "connected") {
+      console.log("MIDI device connected:", e.port.name);
+      e.port.onmidimessage = handleMIDIMessage;
+    }
+  };
+}
+
+function onMIDIFailure(error) {
+  console.log("MIDI access denied:", error);
+}
+
+function ensureAudioContext() {
+  if (!audioContextInitialized) {
+    const AudioContextClass = window.webkitAudioContext || window.AudioContext;
+    audioContext = new AudioContextClass();
+    analyser = audioContext.createAnalyser();
+    analyser.connect(audioContext.destination);
+
+    const bufferLength = analyser.frequencyBinCount;
+    frequencyData = new Uint8Array(bufferLength);
+
+    // Create gain node for MIDI synth
+    midiSynthGain = audioContext.createGain();
+    midiSynthGain.gain.value = 0.3;
+    midiSynthGain.connect(analyser);
+
+    audioContextInitialized = true;
+  }
+
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+
+  if (!renderStarted) {
+    renderStarted = true;
+    render();
+  }
+}
+
+function midiNoteToFrequency(note) {
+  return 440 * Math.pow(2, (note - 69) / 12);
+}
+
+function handleMIDIMessage(event) {
+  const [status, note, velocity] = event.data;
+  const command = status & 0xF0;
+
+  // Note On
+  if (command === 0x90 && velocity > 0) {
+    noteOn(note, velocity);
+  }
+  // Note Off (or Note On with velocity 0)
+  else if (command === 0x80 || (command === 0x90 && velocity === 0)) {
+    noteOff(note);
+  }
+}
+
+function noteOn(note, velocity) {
+  ensureAudioContext();
+
+  // Stop existing note if still playing
+  if (activeOscillators[note]) {
+    noteOff(note);
+  }
+
+  const freq = midiNoteToFrequency(note);
+  const gain = (velocity / 127) * 0.5;
+
+  // Create oscillator
+  const osc = audioContext.createOscillator();
+  const oscGain = audioContext.createGain();
+
+  // Use sawtooth for richer harmonics (better visualization)
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+
+  // Add a second oscillator slightly detuned for fuller sound
+  const osc2 = audioContext.createOscillator();
+  osc2.type = 'square';
+  osc2.frequency.setValueAtTime(freq * 1.005, audioContext.currentTime);
+
+  // Envelope
+  oscGain.gain.setValueAtTime(0, audioContext.currentTime);
+  oscGain.gain.linearRampToValueAtTime(gain, audioContext.currentTime + 0.02);
+
+  // Connect: oscillators -> gain -> midiSynthGain -> analyser -> destination
+  osc.connect(oscGain);
+  osc2.connect(oscGain);
+  oscGain.connect(midiSynthGain);
+
+  osc.start();
+  osc2.start();
+
+  activeOscillators[note] = { osc, osc2, oscGain };
+}
+
+function noteOff(note) {
+  if (!activeOscillators[note]) return;
+
+  const { osc, osc2, oscGain } = activeOscillators[note];
+
+  // Fade out
+  oscGain.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.1);
+
+  // Stop oscillators after fade
+  setTimeout(() => {
+    osc.stop();
+    osc2.stop();
+  }, 150);
+
+  delete activeOscillators[note];
+}
+
+// Initialize MIDI on page load
+initMIDI();
 
 
 //////////////////////////////////////////////////////
@@ -287,368 +443,3 @@ function render() {
   renderer.render(scene, camera);
 }
 
-
-//////////////////////////////////////////////////////
-// midi input code 
-// delete this code bc it's going to cause some issues
-/*
-var log = console.log.bind(console),
-  keyData = document.getElementById("key_data"),
-  deviceInfoInputs = document.getElementById("inputs"),
-  deviceInfoOutputs = document.getElementById("outputs"),
-  midi;
-var AudioContext;
-var context;
-var btnBox = document.getElementById("content"),
-  btn = document.getElementsByClassName("button");
-var data, cmd, channel, type, note, velocity;
-
-// Existing code unchanged.
-window.onload = function () {
-  var context = new AudioContext();
-  // Setup all nodes
-  // ...
-};
-
-try {
-  AudioContext = window.AudioContext || window.webkitAudioContext; // for ios/safari
-  context = new AudioContext().resume();
-  // getAudioContext().resume();
-} catch (e) {
-  alert(
-    "Web Audio API is not supported in this browser or there has been an error."
-  );
-}
-// request MIDI access
-if (navigator.requestMIDIAccess) {
-  navigator
-    .requestMIDIAccess({
-      sysex: false,
-    })
-    .then(onMIDISuccess, onMIDIFailure);
-} else {
-  alert("No MIDI support in your browser.");
-}
-
-// add event listeners
-document.addEventListener("keydown", keyController);
-document.addEventListener("keyup", keyController);
-for (var i = 0; i < btn.length; i++) {
-  btn[i].addEventListener("mousedown", clickPlayOn);
-  btn[i].addEventListener("mouseup", clickPlayOff);
-}
-// prepare audio files
-for (var i = 0; i < btn.length; i++) {
-  addAudioProperties(btn[i]);
-}
-// TODO: restore this later for drums!! 
-// this maps the MIDI key value (60 - 64) to our samples
-// var sampleMap = {
-//   key60: 1,
-//   key61: 2,
-//   key62: 3,
-//   key63: 4,
-//   key64: 5,
-// };
-// user interaction, mouse click
-function clickPlayOn(e) {
-  e.target.classList.add("active");
-  e.target.play();
-}
-
-function clickPlayOff(e) {
-  e.target.classList.remove("active");
-}
-// qwerty keyboard controls. [q,w,e,r,t]
-function keyController(e) {
-  if (e.type == "keydown") {
-    switch (e.keyCode) {
-      case 81:
-        btn[0].classList.add("active");
-        btn[0].play();
-        break;
-      case 87:
-        btn[1].classList.add("active");
-        btn[1].play();
-        break;
-      case 69:
-        btn[2].classList.add("active");
-        btn[2].play();
-        break;
-      case 82:
-        btn[3].classList.add("active");
-        btn[3].play();
-        break;
-      case 84:
-        btn[4].classList.add("active");
-        btn[4].play();
-        break;
-      default:
-      //console.log(e);
-    }
-  } else if (e.type == "keyup") {
-    switch (e.keyCode) {
-      case 81:
-        btn[0].classList.remove("active");
-        break;
-      case 87:
-        btn[1].classList.remove("active");
-        break;
-      case 69:
-        btn[2].classList.remove("active");
-        break;
-      case 82:
-        btn[3].classList.remove("active");
-        break;
-      case 84:
-        btn[4].classList.remove("active");
-        break;
-      default:
-      //console.log(e.keyCode);
-    }
-  }
-}
-// midi functions
-function onMIDISuccess(midiAccess) {
-  midi = midiAccess;
-  var inputs = midi.inputs.values();
-  // loop through all inputs
-  for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
-    // listen for midi messages
-    input.value.onmidimessage = onMIDIMessage;
-    // this just lists our inputs in the console
-    listInputs(input);
-  }
-  // listen for connect/disconnect message
-  midi.onstatechange = onStateChange;
-}
-
-function onMIDIMessage(event) {
-  (data = event.data),
-    (cmd = data[0] >> 4),
-    (channel = data[0] & 0xf),
-    (type = data[0] & 0xf0), // channel agnostic message type. Thanks, Phil Burk.
-    (note = data[1]),
-    (velocity = data[2]);
-	// with pressure and tilt off
-	// note off: 128, cmd: 8
-	// note on: 144, cmd: 9
-	// pressure / tilt on
-	// pressure: 176, cmd 11:
-	// bend: 224, cmd: 14
-	var key;
-	var num = (note - 48) % 12;
-	switch (num){
-		case 0:
-			key = 'C';
-			break;
-		case 1:
-			key = 'C#';
-			break;
-		case 2:
-			key = 'D';
-			break;
-		case 3:
-			key = 'D#';
-			break;
-		case 4:
-			key = 'E';
-			break;
-		case 5:
-			key = 'F';
-			break;
-		case 6:
-			key = 'F#';
-			break;
-		case 7:
-			key = 'G';
-			break;
-		case 8:
-			key = 'G#';
-			break;
-		case 9:
-			key = 'A';
-			break;
-		case 10:
-			key = 'A#';
-			break;
-		case 11:
-			key = 'B';
-			break;
-		default:
-			key = 'C';
-	}
-	console.log("NOTE IS " + key);
-
-	if (velocity) {
-		noteOn(note, velocity);
-	} else {
-		noteOff(note, velocity);
-	}
-	console.log("data", data, "cmd", cmd, "channel", channel, "note", key);
-	logger(keyData, "MIDI Input Data:", data);
-	//   switch (type) {
-	//     case 144: // noteOn message
-	//       noteOn(note, velocity);
-	//       break;
-	//     case 128: // noteOff message
-	//       noteOff(note, velocity);
-	//       break;
-	//   }
-
-//   console.log("data", data, "cmd", cmd, "channel", channel);
-//   logger(keyData, "key data", data);
-}
-
-function onStateChange(event) {
-  var port = event.port,
-    state = port.state,
-    name = port.name,
-    type = port.type;
-  if (type == "input") console.log("name", name, "port", port, "state", state);
-}
-
-function listInputs(inputs) {
-  var input = inputs.value;
-  log(
-    "Input port : [ type:'" +
-      input.type +
-      "' id: '" +
-      input.id +
-      "' manufacturer: '" +
-      input.manufacturer +
-      "' name: '" +
-      input.name +
-      "' version: '" +
-      input.version +
-      "']"
-  );
-}
-
-function noteOn(midiNote, velocity) {
-  player(midiNote, velocity);
-}
-
-function noteOff(midiNote, velocity) {
-  player(midiNote, velocity);
-}
-
-// TODO: restore for player! 
-function player(note, velocity) {
-  // var sample = sampleMap["key" + note];
-  // if (sample) {
-  //   if (type == (0x80 & 0xf0) || velocity == 0) {
-  //     //QuNexus always returns 144
-  //     btn[sample - 1].classList.remove("active");
-  //     return;
-  //   }
-  //   btn[sample - 1].classList.add("active");
-  //   btn[sample - 1].play(velocity);
-  // }
-}
-
-function onMIDIFailure(e) {
-  log(
-    "No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim " +
-      e
-  );
-}
-
-// audio functions
-// We'll go over these in detail in future posts
-function loadAudio(object, url) {
-  var request = new XMLHttpRequest();
-  request.open("GET", url, true);
-  request.responseType = "arraybuffer";
-  request.onload = function () {
-    context.decodeAudioData(request.response, function (buffer) {
-      object.buffer = buffer;
-    });
-  };
-  request.send();
-}
-
-function addAudioProperties(object) {
-  object.name = object.id;
-  object.source = object.dataset.sound;
-  loadAudio(object, object.source);
-  object.play = function (volume) {
-    var s = context.createBufferSource();
-    var g = context.createGain();
-    var v;
-    s.buffer = object.buffer;
-    s.playbackRate.value = randomRange(0.5, 2);
-    if (volume) {
-      v = rangeMap(volume, 1, 127, 0.2, 2);
-      s.connect(g);
-      g.gain.value = v * v;
-      g.connect(context.destination);
-    } else {
-      s.connect(context.destination);
-    }
-
-    s.start();
-    object.s = s;
-  };
-}
-
-// utility functions
-function randomRange(min, max) {
-  return Math.random() * (max + min) + min;
-}
-
-function rangeMap(x, a1, a2, b1, b2) {
-  return ((x - a1) / (a2 - a1)) * (b2 - b1) + b1;
-}
-
-function frequencyFromNoteNumber(note) {
-  return 440 * Math.pow(2, (note - 69) / 12);
-}
-
-function logger(container, label, data) {
-  messages =
-    label +
-    " [channel: " +
-    (data[0] & 0xf) +
-    ", cmd: " +
-    (data[0] >> 4) +
-    ", type: " +
-    (data[0] & 0xf0) +
-    " , note: " +
-    data[1] +
-    " , velocity: " +
-    data[2] +
-    "]";
-  //   container.textContent = messages;
-  document.getElementById("type").innerHTML = messages;
-}
-
-// MIDI utility functions
-function showMIDIPorts(midiAccess) {
-  var inputs = midiAccess.inputs,
-    outputs = midiAccess.outputs,
-    html;
-  html = '<h4>MIDI Inputs:</h4><div class="info">';
-  inputs.forEach(function (port) {
-    html += "<p>" + port.name + "<p>";
-    html += '<p class="small">connection: ' + port.connection + "</p>";
-    html += '<p class="small">state: ' + port.state + "</p>";
-    html += '<p class="small">manufacturer: ' + port.manufacturer + "</p>";
-    if (port.version) {
-      html += '<p class="small">version: ' + port.version + "</p>";
-    }
-  });
-  deviceInfoInputs.innerHTML = html + "</div>";
-
-  html = '<h4>MIDI Outputs:</h4><div class="info">';
-  outputs.forEach(function (port) {
-    html += "<p>" + port.name + "<br>";
-    html += '<p class="small">manufacturer: ' + port.manufacturer + "</p>";
-    if (port.version) {
-      html += '<p class="small">version: ' + port.version + "</p>";
-    }
-  });
-  deviceInfoOutputs.innerHTML = html + "</div>";
-}
-
-*/
