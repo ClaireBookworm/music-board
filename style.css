@@ -52,6 +52,12 @@ body {
     color: white;
     font-size: 2.5rem;
     border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.controls > button:hover {
+    color: #00fff9;
+    text-shadow: 0 0 10px #00fff9;
 }
 .controls > button:focus {
     color: #00fff9;
@@ -61,6 +67,7 @@ body {
 h1 {
 	font-family: "VCR OSD Mono", "Press Start 2P", monospace;
 	font-size: 2rem;
+	text-shadow: 0 0 10px #ff00c1, 0 0 20px #ff00c1, 0 0 40px #9600ff;
 }
 
 /* PLAYER and UPLOAD */
@@ -78,23 +85,55 @@ input[type="file"] {
     display: none;
 }
 
-.label-input{ 
+.label-input{
 	font-family:  "SF Mono", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
 	line-height: 1rem;
     text-align: center;
 	margin: 0 2rem;
-	background-color: 	#ff00c1;
-    /* display: inline-block; */
+	background-color: #ff00c1;
     padding: 6px 12px;
     cursor: pointer;
 	font-family: "VCR OSD Mono", "Press Start 2P", monospace;
 	flex: 1;
+	transition: all 0.2s ease;
+	border: 2px solid transparent;
+}
+.label-input:hover {
+	background-color: #00fff9;
+	color: #4900ff;
+	border-color: #ff00c1;
+	box-shadow: 0 0 15px #00fff9;
 }
 audio {
     width: 100%;
     height: 30px;
 	/* display: inline-block; */
 	flex:4;
+}
+
+/* MIDI indicator */
+.midi-status {
+	display: inline-block;
+	padding: 4px 10px;
+	margin-left: 1rem;
+	font-size: 0.75rem;
+	font-family: "VCR OSD Mono", monospace;
+	border-radius: 3px;
+	vertical-align: middle;
+}
+.midi-status.disconnected {
+	background-color: rgba(255, 255, 255, 0.1);
+	color: rgba(255, 255, 255, 0.5);
+}
+.midi-status.connected {
+	background-color: #00fff9;
+	color: #4900ff;
+	box-shadow: 0 0 10px #00fff9;
+	animation: pulse 2s infinite;
+}
+@keyframes pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.7; }
 }
 
 

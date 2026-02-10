@@ -302,21 +302,58 @@ function initMIDI() {
     .then(onMIDISuccess, onMIDIFailure);
 }
 
+function updateMIDIStatus(connected, deviceName = '') {
+  const statusEl = document.getElementById('midi-status');
+  if (!statusEl) return;
+
+  if (connected) {
+    statusEl.className = 'midi-status connected';
+    statusEl.textContent = 'MIDI: ' + (deviceName || 'ON');
+  } else {
+    statusEl.className = 'midi-status disconnected';
+    statusEl.textContent = 'MIDI: OFF';
+  }
+}
+
 function onMIDISuccess(midiAccess) {
   console.log("MIDI access granted");
   midiEnabled = true;
 
   // Listen to all MIDI inputs
+  let deviceCount = 0;
+  let lastName = '';
   for (let input of midiAccess.inputs.values()) {
     console.log("MIDI input detected:", input.name);
     input.onmidimessage = handleMIDIMessage;
+    deviceCount++;
+    lastName = input.name;
+  }
+
+  if (deviceCount > 0) {
+    updateMIDIStatus(true, lastName);
   }
 
   // Listen for new devices
   midiAccess.onstatechange = (e) => {
-    if (e.port.type === "input" && e.port.state === "connected") {
-      console.log("MIDI device connected:", e.port.name);
-      e.port.onmidimessage = handleMIDIMessage;
+    if (e.port.type === "input") {
+      if (e.port.state === "connected") {
+        console.log("MIDI device connected:", e.port.name);
+        e.port.onmidimessage = handleMIDIMessage;
+        updateMIDIStatus(true, e.port.name);
+      } else if (e.port.state === "disconnected") {
+        console.log("MIDI device disconnected:", e.port.name);
+        // Check if any devices still connected
+        let stillConnected = false;
+        let name = '';
+        for (let input of midiAccess.inputs.values()) {
+          if (input.state === "connected") {
+            stillConnected = true;
+            name = input.name;
+            break;
+          }
+        }
+        updateMIDIStatus(stillConnected, name);
+      }
     }
   };
 }
